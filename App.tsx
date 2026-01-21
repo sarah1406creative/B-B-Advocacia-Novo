@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Phone, 
-  CheckCircle2, 
-  Scale, 
-  Users, 
-  HeartHandshake, 
-  FileText, 
-  Gavel, 
-  Baby, 
+import {
+  Phone,
+  CheckCircle2,
+  Scale,
+  Users,
+  HeartHandshake,
+  FileText,
+  Gavel,
+  Baby,
   Calculator,
   ChevronDown,
   ChevronUp,
@@ -17,16 +17,19 @@ import {
   ShieldCheck,
   Lock,
   Sparkles,
-  Code2
+  Code2,
+  ArrowRight,
+  Heart,
+  Shield
 } from 'lucide-react';
 import { ServiceItem, FaqItem, Testimonial } from './types';
 
 // --- Components defined internally for portability in this specific context ---
 
 // 1. Reusable UI Components
-const Button: React.FC<{ 
-  children: React.ReactNode; 
-  variant?: 'primary' | 'outline' | 'white'; 
+const Button: React.FC<{
+  children: React.ReactNode;
+  variant?: 'primary' | 'outline' | 'white';
   className?: string;
   onClick?: () => void;
   fullWidth?: boolean;
@@ -37,9 +40,9 @@ const Button: React.FC<{
     outline: "border-2 border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white",
     white: "bg-white text-brand-dark hover:bg-gray-100"
   };
-  
+
   return (
-    <button 
+    <button
       onClick={onClick}
       className={`${baseStyles} ${variants[variant]} ${fullWidth ? 'w-full' : ''} ${className}`}
     >
@@ -76,28 +79,20 @@ const Modal: React.FC<{
 
 // 2. Section Components
 
-const Header = ({ onCtaClick }: { onCtaClick: () => void }) => {
+const Header = () => {
   return (
     <header className="w-full bg-white z-50 shadow-sm border-b border-gray-100 relative">
-      <div className="max-w-6xl mx-auto px-4 md:px-8 h-24 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <img 
-            src="logo.webp" 
-            alt="Barros e Barros Sociedade de Advogados" 
-            className="h-12 md:h-16 w-auto object-contain"
+      <div className="max-w-6xl mx-auto px-4 md:px-8 h-24 flex items-center justify-center lg:justify-between">
+        <div className="flex items-center">
+          <img
+            src="Logotipo-Barros-e-Barros-768x185.webp"
+            alt="Barros e Barros Sociedade de Advogados"
+            className="h-10 md:h-14 w-auto object-contain"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
-              e.currentTarget.parentElement?.insertAdjacentHTML('beforeend', '<span class="font-serif text-xl md:text-2xl text-brand-dark font-bold">BB Advogados</span>');
+              e.currentTarget.parentElement?.insertAdjacentHTML('beforeend', '<span class="font-serif text-xl md:text-2xl text-brand-dark font-bold">Barros & Barros</span>');
             }}
           />
-        </div>
-
-        {/* CTA Area */}
-        <div className="flex items-center gap-4">
-          <Button onClick={onCtaClick} variant="primary" className="py-2.5 px-5 text-sm shadow-brand-gold/20 shadow-lg">
-            Falar com Advogado
-          </Button>
         </div>
       </div>
     </header>
@@ -106,207 +101,203 @@ const Header = ({ onCtaClick }: { onCtaClick: () => void }) => {
 
 const Hero = ({ onCtaClick }: { onCtaClick: () => void }) => {
   return (
-    <section id="inicio" className="relative pt-12 pb-16 md:pt-20 md:pb-24 bg-brand-dark overflow-hidden">
-      {/* Abstract Background Element */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-brand-light/10 transform skew-x-12 translate-x-20 pointer-events-none"></div>
+    <section id="inicio" className="relative pt-6 md:pt-16 pb-20 md:pb-32 bg-brand-dark overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-brand-gold/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-brand-light/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      {/* Abstract Grid Line */}
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-gold/20 to-transparent"></div>
 
       <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+
           {/* Content */}
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-block px-3 py-1 bg-brand-gold/20 border border-brand-gold/30 rounded-full mb-6">
-              <span className="text-brand-gold text-xs font-bold uppercase tracking-widest">Atendimento Humanizado</span>
+          <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-gold/10 border border-brand-gold/20 rounded-full mb-8 transform hover:scale-105 transition-transform cursor-default">
+              <Sparkles size={14} className="text-brand-gold outline-none" />
+              <span className="text-brand-gold text-[10px] font-extrabold uppercase tracking-[0.2em]">Atendimento de Elite</span>
             </div>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-6">
-              Separação e divórcio com orientação jurídica <span className="text-brand-gold italic">segura</span>, <span className="text-brand-gold italic">humanizada</span> e sigilosa.
+
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl text-white leading-[1.1] mb-8">
+              Separação jurídica <span className="text-brand-gold italic block mt-2">segura e humanizada.</span>
             </h1>
-            <p className="font-sans text-gray-300 text-lg mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              A separação é um momento sensível e cheio de dúvidas. Com atendimento sigiloso, ajudamos você em questões como guarda, pensão, convivência e partilha de bens, conduzindo tudo com clareza e segurança.
+
+            <p className="font-sans text-gray-400 text-lg md:text-xl mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              Conduzimos seu processo com <span className="text-white font-medium">discrição absoluta</span> e foco no menor desgaste emocional possível para sua família.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button onClick={onCtaClick} variant="white" className="shadow-lg shadow-brand-gold/10">
-                Quero falar com um advogado agora
+
+            <div className="flex flex-col sm:flex-row items-center gap-5 justify-center lg:justify-start mb-12">
+              <Button onClick={onCtaClick} variant="white" className="w-full sm:w-auto shadow-2xl shadow-brand-gold/10 px-12 py-5 text-lg group overflow-hidden relative">
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  Falar com Advogado <MessageCircle size={18} className="text-brand-gold" />
+                </span>
+                <div className="absolute inset-0 bg-gray-50 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               </Button>
             </div>
-            <p className="mt-4 text-xs text-gray-400 uppercase tracking-wider">Atendimento sigiloso e personalizado em toda Região Metropolitana</p>
+
+            {/* Trust Bar */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 md:gap-10 border-t border-white/5 pt-8">
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-brand-gold/30 transition-colors">
+                  <ShieldCheck size={20} className="text-brand-gold/70 group-hover:text-brand-gold" />
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-0.5">Segurança</p>
+                  <p className="text-sm text-gray-300 font-medium">Sigilo Total</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-brand-gold/30 transition-colors">
+                  <Users size={20} className="text-brand-gold/70 group-hover:text-brand-gold" />
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-0.5">Foco</p>
+                  <p className="text-sm text-gray-300 font-medium">Humanizado</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-brand-gold/30 transition-colors">
+                  <Calculator size={20} className="text-brand-gold/70 group-hover:text-brand-gold" />
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-bold mb-0.5">Agilidade</p>
+                  <p className="text-sm text-gray-300 font-medium">Região Metropolitana</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Image/Card */}
-          <div className="flex-1 relative w-full max-w-md lg:max-w-full">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-700 min-h-[300px] bg-brand-light/20 group">
-               {/* Using plain filename. Ensure matheus.webp is in the root folder */}
-              <img 
-                src="matheus.webp" 
-                alt="Advogado Matheus Barros" 
-                className="w-full h-auto object-contain"
+          <div className="flex-1 relative w-full max-w-sm lg:max-w-md order-1 lg:order-2">
+            {/* Main Spotlight Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-brand-gold/10 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+
+            <div className="relative rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] border border-white/10 bg-gradient-to-b from-brand-light/10 to-transparent group">
+              <img
+                src="matheus.webp"
+                alt="Advogado Matheus Barros"
+                className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-700"
                 onError={(e) => {
-                    // Fallback to a placeholder if local image is missing
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+                  e.currentTarget.src = "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
                 }}
               />
-              {/* Name Overlay */}
-              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent p-6 pt-20">
-                <p className="font-serif text-xl text-white font-bold">Dr. Matheus Barros</p>
-                <p className="font-sans text-brand-gold text-sm font-medium tracking-wide">OAB/SP 123.456</p>
+
+              {/* Glassmorphism Name Overlay */}
+              <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-brand-dark/40 backdrop-blur-xl border border-white/10 shadow-2xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                <p className="font-serif text-2xl text-white font-bold mb-1 tracking-tight">Dr. Matheus Barros</p>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-[1px] bg-brand-gold/50"></div>
+                  <p className="font-sans text-brand-gold text-xs font-extrabold uppercase tracking-widest">OAB/RS 115.392</p>
+                </div>
               </div>
             </div>
-            {/* Decorative element behind image */}
-            <div className="absolute -z-10 top-6 -right-6 w-full h-full border-2 border-brand-gold/30 rounded-2xl hidden md:block"></div>
+
+            {/* Floating Decorative Elements */}
+            <div className="absolute -top-6 -right-6 w-24 h-24 border border-brand-gold/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-brand-gold/2 opacity-50 blur-2xl rounded-full"></div>
           </div>
-          
+
         </div>
       </div>
     </section>
   );
 };
 
-const EmpathySection = () => {
+const EmpathySection = ({ onCtaClick }: { onCtaClick: () => void }) => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-white relative">
       <div className="max-w-4xl mx-auto px-4 text-center">
         <div className="mb-8 flex justify-center">
-            <div className="w-16 h-16 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold shadow-xl">
-                <MessageCircle size={32} />
-            </div>
+          <div className="w-16 h-16 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold shadow-xl border border-brand-gold/20">
+            <MessageCircle size={32} />
+          </div>
         </div>
-        <h2 className="font-serif text-3xl md:text-4xl text-brand-dark mb-6 font-semibold">
-          Separação é difícil e você não precisa enfrentar isso sem apoio
+        <h2 className="font-serif text-3xl md:text-5xl text-brand-dark mb-8 font-semibold tracking-tight">
+          Separação é difícil e você não precisa enfrentar isso <span className="text-brand-gold italic">sozinho.</span>
         </h2>
-        <div className="w-20 h-1 bg-brand-gold mx-auto mb-8"></div>
-        <p className="font-sans text-gray-600 text-lg leading-relaxed mb-8">
-          A separação costuma trazer dúvidas, medo e inseguranças. É comum ter várias dúvidas, 
-          considerando as decisões importantes e preocupações com o patrimônio, os filhos e o futuro. 
-          Quando tudo parece confuso, o jurídico pode pesar ainda mais. Estamos aqui para orientar 
-          você com clareza, sigilo e segurança, explicando seus direitos e os próximos passos de forma 
-          organizada e tranquila.
+        <div className="w-20 h-1 bg-brand-gold/30 mx-auto mb-10"></div>
+        <p className="font-sans text-gray-500 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
+          Sabemos que este é um momento de incertezas. Nossa missão é trazer clareza e segurança jurídica, conduzindo cada passo com o máximo sigilo e respeito à sua história.
         </p>
+        <Button onClick={onCtaClick} variant="primary" className="px-12 py-5 text-lg shadow-xl shadow-brand-gold/20">
+          Quero uma Orientação Especializada
+        </Button>
       </div>
     </section>
   );
 };
 
-const AudienceSection = () => {
-  const points = [
-    {
-      icon: <CheckCircle2 className="text-brand-gold" size={28} />,
-      title: "Decisão de Divórcio",
-      text: "Casais que desejam formalizar a separação, seja de forma consensual ou litigiosa, buscando o melhor caminho jurídico."
-    },
-    {
-      icon: <Users className="text-brand-gold" size={28} />,
-      title: "Filhos Menores",
-      text: "Famílias que precisam organizar questões fundamentais como guarda, convivência e pensão alimentícia."
-    },
-    {
-      icon: <Scale className="text-brand-gold" size={28} />,
-      title: "Partilha de Bens",
-      text: "Quem construiu patrimônio durante a união e necessita de uma divisão justa e correta perante a lei."
-    },
-    {
-      icon: <FileText className="text-brand-gold" size={28} />,
-      title: "União Estável",
-      text: "Pessoas que precisam formalizar ou dissolver uma união estável, garantindo seus direitos retroativos."
-    },
-    {
-      icon: <ShieldCheck className="text-brand-gold" size={28} />,
-      title: "Situações Complexas",
-      text: "Casos que envolvem conflitos acentuados e exigem uma atuação firme, estratégica e protetiva."
-    },
-    {
-      icon: <Lock className="text-brand-gold" size={28} />,
-      title: "Segurança Jurídica",
-      text: "Quem já está separado de fato, mas precisa regularizar a situação no papel para evitar problemas futuros."
-    }
-  ];
-
-  return (
-    <section className="py-24 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-3xl md:text-4xl text-brand-dark mb-4">
-            Para quem é o nosso atendimento?
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-             Atuamos com foco total em Direito de Família, oferecendo soluções personalizadas para cada momento da sua vida.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {points.map((point, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 hover:shadow-lg hover:border-brand-gold/50 transition-all group duration-300">
-              <div className="mb-4 bg-gray-50 w-14 h-14 rounded-full flex items-center justify-center group-hover:bg-brand-dark transition-colors duration-300">
-                {point.icon}
-              </div>
-              <h3 className="font-serif font-bold text-lg text-brand-dark mb-3">{point.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{point.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const ServicesSection = () => {
+const ExpertiseSection = () => {
   const services: (ServiceItem & { icon: React.ReactNode })[] = [
     {
-      title: "Divórcio Consensual",
-      description: "Quando há acordo entre as partes, cuidamos de toda a documentação e formalização para que o divórcio seja concluído com segurança jurídica, rapidez e o mínimo de desgaste.",
+      title: "Divórcio Consensual ou Litigioso",
+      description: "Atuamos tanto em casos amigáveis quanto em situações de conflito, garantindo que seus direitos patrimoniais e familiares sejam defendidos com estratégia e postura ética.",
       icon: <HeartHandshake size={32} />
     },
     {
-      title: "Divórcio Litigioso",
-      description: "Quando não existe consenso, atuamos de forma estratégica para defender seus direitos patrimoniais e familiares, sempre com postura ética, firmeza e foco em resultados.",
-      icon: <Gavel size={32} />
-    },
-    {
       title: "Dissolução de União Estável",
-      description: "Regularizamos a união estável com análise de bens, direitos e responsabilidades, conforme o regime aplicável ao caso, garantindo segurança jurídica em cada etapa.",
+      description: "Regularizamos o fim da união estável com análise detalhada de bens e direitos, conforme o regime aplicável, trazendo segurança jurídica para sua nova etapa.",
       icon: <FileText size={32} />
     },
     {
       title: "Guarda e Convivência",
-      description: "Orientação completa sobre guarda dos filhos e convivência, buscando soluções equilibradas e juridicamente corretas para a realidade da sua família.",
+      description: "Orientação focada no bem-estar dos filhos, buscando soluções equilibradas e juridicamente corretas para a organização do cotidiano familiar.",
       icon: <Baby size={32} />
     },
     {
+      title: "Pensão Alimentícia",
+      description: "Cálculo, revisão ou execução de pensão, assegurando que as necessidades de quem recebe e as possibilidades de quem paga sejam respeitadas de forma justa.",
+      icon: <Calculator size={32} />
+    },
+    {
       title: "Partilha de Bens",
-      description: "Estudo detalhado do patrimônio para uma divisão justa, de acordo com o regime de bens e as particularidades da relação, preservando seus direitos e sua tranquilidade.",
+      description: "Estudo minucioso do patrimônio para uma divisão correta e transparente, preservando seus direitos e evitando prejuízos desnecessários.",
       icon: <Scale size={32} />
     },
     {
-      title: "Pensão Alimentícia",
-      description: "Cálculo, revisão ou execução de pensão alimentícia, garantindo que os direitos de quem recebe e os deveres de quem paga sejam cumpridos de forma adequada.",
-      icon: <Calculator size={32} />
+      title: "Regularização Jurídica",
+      description: "Para quem já está separado de fato e deseja formalizar a situação no papel, evitando problemas futuros e garantindo paz de espírito.",
+      icon: <CheckCircle2 size={32} />
     }
   ];
 
   return (
-    <section id="atuacao" className="py-24 bg-brand-dark text-white relative overflow-hidden">
+    <section id="atuacao" className="py-20 md:py-28 bg-brand-dark text-white relative overflow-hidden">
       {/* Texture Background */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at center, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-      
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at center, white 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+
       <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
-        <div className="text-center mb-16 max-w-2xl mx-auto">
-          <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">
-            Como podemos ajudar na sua separação
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <h2 className="font-serif text-3xl md:text-5xl text-white mb-6 leading-tight">
+            Nossa Atuação Especializada em <span className="text-brand-gold italic">Direito de Família</span>
           </h2>
-          <p className="text-gray-300">
-            Deixe a papelada e as complexidades legais conosco: cuidamos de cada detalhe com excelência técnica e discrição.
+          <div className="w-20 h-1 bg-brand-gold mx-auto mb-6"></div>
+          <p className="text-gray-400 text-lg">
+            Oferecemos suporte jurídico estratégico e humano para cada uma das suas necessidades, conduzindo processos com excelência técnica e discrição absoluta.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
           {services.map((service, idx) => (
-            <div key={idx} className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/10 hover:border-brand-gold hover:bg-white/10 transition-all duration-300 flex flex-col items-center text-center group">
-              <div className="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition-colors">
+            <div key={idx} className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10 hover:border-brand-gold/50 hover:bg-white/[0.08] transition-all duration-500 flex flex-col items-center text-center group">
+              <div className="w-16 h-16 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-brand-dark transition-all duration-500 transform group-hover:scale-110">
                 {service.icon}
               </div>
-              <h3 className="font-serif text-xl font-bold text-white mb-4">{service.title}</h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2 flex-grow">{service.description}</p>
+              <h3 className="font-serif text-xl font-bold text-white mb-4 group-hover:text-brand-gold transition-colors">{service.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed mb-8 flex-grow">{service.description}</p>
+              <button
+                onClick={() => (window as any).Typebot?.toggle()}
+                className="text-brand-gold font-sans font-bold text-xs uppercase tracking-[0.2em] border-b border-brand-gold/30 hover:border-brand-gold transition-all pb-1 group-hover:tracking-[0.25em]"
+              >
+                Falar com Especialista
+              </button>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-8">
+          <p className="text-gray-500 text-sm italic">Cuidamos de toda a documentação, inclusive testamentos e planejamentos sucessórios.</p>
         </div>
       </div>
     </section>
@@ -314,92 +305,166 @@ const ServicesSection = () => {
 };
 
 const SecondTeamSection = ({ onCtaClick }: { onCtaClick: () => void }) => {
-    return (
-        <section id="sobre" className="py-24 bg-white relative">
-            <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
-                <div className="flex flex-col md:flex-row items-center gap-12">
-                     <div className="w-full md:w-1/2 order-2 md:order-1">
-                        <div className="relative group">
-                            {/* Decorative background accent */}
-                            <div className="absolute -inset-2 bg-gray-100 rounded-2xl -z-10 transform -rotate-2"></div>
-                            
-                            <div className="relative rounded-xl overflow-hidden shadow-2xl border border-gray-200">
-                                <img 
-                                    src="taiane.webp" 
-                                    alt="Dra. Taiane Barros" 
-                                    className="relative w-full h-auto object-contain bg-gray-50"
-                                    onError={(e) => {
-                                        e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
-                                    }}
-                                />
-                                {/* Name Overlay */}
-                                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-brand-dark via-brand-dark/90 to-transparent p-6 pt-20">
-                                    <p className="font-serif text-xl text-white font-bold">Dra. Taiane Barros</p>
-                                    <p className="font-sans text-brand-gold text-sm font-medium tracking-wide">OAB/SP 123.456</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="w-full md:w-1/2 order-1 md:order-2">
-                        <div className="inline-block p-3 rounded-full bg-brand-dark text-brand-gold mb-6 shadow-md">
-                            <Scale size={28} />
-                        </div>
-                        <h2 className="font-serif text-3xl md:text-4xl mb-6 text-brand-dark">
-                            Conte com orientação jurídica clara e acolhedora
-                        </h2>
-                        <div className="w-16 h-1 bg-brand-gold mb-8"></div>
-                        <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                            Agende uma consulta e entenda seus direitos, próximos passos e as melhores alternativas para o seu caso. Nossa equipe está preparada para oferecer o suporte necessário com empatia e técnica.
-                        </p>
-                        <Button onClick={onCtaClick} variant="primary" className="w-full md:w-auto shadow-lg shadow-brand-gold/30">
-                            Quero falar com um advogado agora
-                        </Button>
-                    </div>
+  return (
+    <section id="sobre" className="py-24 bg-white relative">
+      <div className="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row items-center gap-12">
+          <div className="w-full md:w-1/2 order-2 md:order-1">
+            <div className="relative group">
+              {/* Decorative background accent */}
+              <div className="absolute -inset-2 bg-gray-100 rounded-2xl -z-10 transform -rotate-2"></div>
+
+              <div className="relative rounded-xl overflow-hidden shadow-2xl border border-gray-200">
+                <img
+                  src="taiane-barros.webp"
+                  alt="Dra. Taiane Barros"
+                  className="relative w-full h-auto object-contain bg-gray-50"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+                  }}
+                />
+                {/* Name Overlay */}
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-brand-dark via-brand-dark/90 to-transparent p-6 pt-20">
+                  <p className="font-serif text-xl text-white font-bold">Dra. Taiane Barros</p>
+                  <p className="font-sans text-brand-gold text-sm font-medium tracking-wide">OAB/RS 137.457</p>
                 </div>
+              </div>
             </div>
-        </section>
-    )
+          </div>
+          <div className="w-full md:w-1/2 order-1 md:order-2">
+            <div className="inline-block p-3 rounded-full bg-brand-dark text-brand-gold mb-6 shadow-md">
+              <Scale size={28} />
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl mb-6 text-brand-dark">
+              Conte com orientação jurídica clara e acolhedora
+            </h2>
+            <div className="w-16 h-1 bg-brand-gold mb-8"></div>
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+              Agende uma consulta e entenda seus direitos, próximos passos e as melhores alternativas para o seu caso. Nossa equipe está preparada para oferecer o suporte necessário com empatia e técnica.
+            </p>
+            <Button onClick={onCtaClick} variant="primary" className="w-full md:w-auto shadow-lg shadow-brand-gold/30">
+              Quero falar com um advogado agora
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 const ReviewSection = () => {
-    return (
-        <section className="py-24 bg-gray-50 relative">
-            <div className="max-w-4xl mx-auto px-4 text-center">
-                <p className="font-serif text-2xl text-gray-800 mb-12">
-                    A confiança dos nossos clientes é o reflexo do cuidado que dedicamos a cada caso.
-                </p>
+  const reviews = [
+    {
+      name: "Eduarda Aveiro",
+      date: "01/08/2025",
+      text: "Os melhores advogados da região, indico de olhos fechados ❤️",
+      initial: "E",
+      color: "bg-pink-600"
+    },
+    {
+      name: "David Minervine",
+      date: "01/08/2025",
+      text: "Excelente dr. Muito prestativo e atencioso!",
+      initial: "D",
+      color: "bg-green-700"
+    },
+    {
+      name: "Edson Grecilo",
+      date: "01/08/2025",
+      text: "Profissionais empenhados em solucionar os processos, organizados, dinâmicos, pontuais no atendimento, recomendo!!",
+      initial: "E",
+      color: "bg-blue-600"
+    },
+    {
+      name: "andriane rosa",
+      date: "31/07/2025",
+      text: "Um escritório que vai além do profissionalismo, trata cada cliente com carinho, atenção e um cuidado que faz toda a diferença. É lindo ver tanta dedicação e respeito em cada detalhe. Dá pra confiar de olhos fechados e com o coração tranquilo!",
+      initial: "A",
+      color: "bg-purple-600"
+    },
+    {
+      name: "jose carlos cardoso",
+      date: "31/07/2025",
+      text: "Estou muito satisfeito com o trabalho, a seriedade e honestidade que é fundamental em qualquer que seja a ação, desde a mais simples até a mais complexa principalmente a honestidade é o que todos os clientes esperam de um escritório de advocacia e tenho plena certeza que com vocês isso é primordial, parabéns e continuem assim esse é o caminho certo.",
+      initial: "J",
+      color: "bg-orange-600"
+    },
+    {
+      name: "Flávia Oliveira da Costa",
+      date: "31/07/2025",
+      text: "Excelentes profissionais, indico muito! Resolveram meu problema e são atenciosos.",
+      initial: "F",
+      color: "bg-teal-600"
+    },
+    {
+      name: "Sandra Cardoso",
+      date: "28/07/2025",
+      text: "Atendimento maravilhoso, super atenciosos mantém a gente informada do andamento do processo.",
+      initial: "S",
+      color: "bg-red-600"
+    },
+    {
+      name: "Sérgio Alexandre",
+      date: "21/07/2025",
+      text: "Ótimo profissional...super indico",
+      initial: "S",
+      color: "bg-indigo-600"
+    }
+  ];
 
-                <div className="bg-white p-10 rounded-2xl shadow-xl border border-gray-100 max-w-lg mx-auto relative">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center text-white font-bold text-xl">D</div>
-                            <div className="text-left">
-                                <p className="font-bold text-gray-900">David Minervine</p>
-                                <p className="text-xs text-gray-500">01/08/2025</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-center w-8 h-8">
-                            {/* Genuine Google G SVG */}
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div className="flex text-yellow-400 mb-6 gap-1">
-                        <Star fill="currentColor" size={24}/>
-                        <Star fill="currentColor" size={24}/>
-                        <Star fill="currentColor" size={24}/>
-                        <Star fill="currentColor" size={24}/>
-                        <Star fill="currentColor" size={24}/>
-                    </div>
-                    <p className="text-gray-700 italic text-left text-lg leading-relaxed">"Excelente dr. Muito prestativo e atencioso! Resolveu meu caso com agilidade."</p>
+  return (
+    <section className="py-24 bg-gray-50 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-16">
+          <p className="font-serif text-2xl md:text-3xl text-gray-800 mb-4 max-w-3xl mx-auto">
+            A confiança dos nossos clientes é o reflexo do cuidado que dedicamos a cada caso.
+          </p>
+          <div className="w-20 h-1 bg-brand-gold mx-auto"></div>
+        </div>
+
+        {/* Horizontal Scrollable Container */}
+        <div className="flex overflow-x-auto gap-6 pb-8 snap-x no-scrollbar">
+          {reviews.map((review, idx) => (
+            <div key={idx} className="min-w-[300px] md:min-w-[350px] bg-white p-8 rounded-2xl shadow-md border border-gray-100 flex flex-col snap-start hover:shadow-xl transition-shadow">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 ${review.color} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
+                    {review.initial}
+                  </div>
+                  <div className="text-left">
+                    <p className="font-bold text-gray-900 text-sm">{review.name}</p>
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wider">{review.date}</p>
+                  </div>
                 </div>
+                <div className="w-5 h-5 opacity-40">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                  </svg>
+                </div>
+              </div>
+              <div className="flex text-yellow-400 mb-4 gap-0.5">
+                {[...Array(5)].map((_, i) => <Star key={i} fill="currentColor" size={14} />)}
+                <div className="ml-1 flex items-center justify-center w-3.5 h-3.5 bg-blue-500 rounded-full">
+                  <span className="text-[10px] text-white font-bold">✓</span>
+                </div>
+              </div>
+              <p className="text-gray-600 italic text-left text-sm leading-relaxed flex-grow">"{review.text}"</p>
+              <div className="mt-4 pt-4 border-t border-gray-50 flex justify-between items-center">
+                <span className="text-[10px] text-gray-400 font-medium uppercase tracking-tighter hover:text-brand-gold transition-colors cursor-pointer">Consulte Mais informação</span>
+              </div>
             </div>
-        </section>
-    )
+          ))}
+        </div>
+      </div>
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+    </section>
+  );
 }
 
 const FAQSection = () => {
@@ -428,12 +493,9 @@ const FAQSection = () => {
     <section id="faq" className="py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
-            <div className="inline-block p-3 rounded-full bg-gray-100 text-brand-dark shadow-sm mb-4 border border-gray-200">
-                <span className="font-serif font-bold text-xl">?</span>
-            </div>
-            <h2 className="font-serif text-3xl md:text-4xl text-brand-dark mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl text-brand-dark mb-4">
             Perguntas Frequentes
-            </h2>
+          </h2>
         </div>
 
         <div className="space-y-4">
@@ -453,9 +515,8 @@ const FAQSection = () => {
                 )}
               </button>
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === idx ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${openIndex === idx ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}
               >
                 <div className="p-6 pt-0 text-gray-600 leading-relaxed border-t border-gray-200 mt-2">
                   {faq.answer}
@@ -474,43 +535,43 @@ const Footer = ({ onOpenPrivacy, onOpenTerms }: { onOpenPrivacy: () => void, onO
     <footer className="bg-brand-dark text-gray-400 py-12 border-t border-gray-800">
       <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col items-center text-center">
         <div className="mb-6">
-            <img 
-              src="logo.webp" 
-              alt="Barros e Barros" 
-              className="h-12 w-auto mb-2 brightness-0 invert opacity-90 mx-auto" 
-              onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement?.insertAdjacentHTML('beforeend', '<span class="font-serif text-2xl text-white font-bold">BB Advogados</span>');
-              }}
-            />
+          <img
+            src="Logotipo-Barros-e-Barros-768x185.webp"
+            alt="Barros e Barros"
+            className="h-10 w-auto mb-2 brightness-0 invert opacity-90 mx-auto"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.parentElement?.insertAdjacentHTML('beforeend', '<span class="font-serif text-2xl text-white font-bold">Barros & Barros</span>');
+            }}
+          />
         </div>
-        
+
         <p className="text-sm leading-relaxed max-w-md mb-8 text-gray-500">
-            Escritório especializado em Direito de Família. Nosso compromisso é com a resolução ética e segura de conflitos familiares.
+          Escritório especializado em Direito de Família. Nosso compromisso é com a resolução ética e segura de conflitos familiares.
         </p>
 
         <div className="flex flex-wrap justify-center gap-6 text-xs text-gray-500 uppercase tracking-wider mb-8">
-             <button onClick={onOpenPrivacy} className="hover:text-brand-gold transition-colors">
-                Política de Privacidade
-             </button>
-             <button onClick={onOpenTerms} className="hover:text-brand-gold transition-colors">
-                Termos de Uso
-             </button>
+          <button onClick={onOpenPrivacy} className="hover:text-brand-gold transition-colors">
+            Política de Privacidade
+          </button>
+          <button onClick={onOpenTerms} className="hover:text-brand-gold transition-colors">
+            Termos de Uso
+          </button>
         </div>
-        
+
         <div className="pt-8 border-t border-gray-800 w-full text-xs text-gray-600 mb-8">
-            <p>&copy; {new Date().getFullYear()} Barros e Barros Sociedade de Advogados. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Barros e Barros Sociedade de Advogados. Todos os direitos reservados.</p>
         </div>
 
         {/* Creative Lane Badge */}
         <a href="https://creativelane.io/" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 px-5 py-3 rounded-xl bg-black/20 border border-white/5 hover:border-white/10 hover:bg-black/30 transition-all duration-300">
-            <div className="flex flex-col items-start">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-sky-500 mb-0.5">Desenvolvido por</span>
-                <span className="font-sans font-bold text-white text-lg leading-none">Creative Lane</span>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-sky-500/30 group-hover:bg-sky-500/10 transition-all ml-2">
-                <Code2 size={18} className="text-gray-400 group-hover:text-sky-400 transition-colors" />
-            </div>
+          <div className="flex flex-col items-start">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-sky-500 mb-0.5">Desenvolvido por</span>
+            <span className="font-sans font-bold text-white text-lg leading-none">Creative Lane</span>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-sky-500/30 group-hover:bg-sky-500/10 transition-all ml-2">
+            <Code2 size={18} className="text-gray-400 group-hover:text-sky-400 transition-colors" />
+          </div>
         </a>
       </div>
     </footer>
@@ -536,34 +597,35 @@ function App() {
   useEffect(() => {
     const typebotInitScript = document.createElement("script");
     typebotInitScript.type = "module";
-    // Using base64 encoded WhatsApp SVG for custom icon
-    // Using a path that has fill-rule="evenodd" to correctly cut out the phone from the white bubble
-    const whatsappIcon = "data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOC40MDMgNS41OTZBOS4wMDUgOS4wMDUgMCAwIDAgMTIuMDE2IDIuOTk4Yy00Ljk2MyAwLTguOTk5IDQuMDM4LTguOTk5IDguOTk5IDAgMS41ODguNDE0IDMuMTM1IDEuMjA1IDQuNDg3TDIuOTk4IDIxLjAwOGw1Ljc1Mi0xLjUxM2ExLjU2IDEuNTYgMCAwIDAgLjMxMy0uMTgyIDguOTggOC45OCAwIDAgMCAyLjk1My41MDFoLLjAwNGM0Ljk2MyAwIDguOTk5LTQuMDM4IDguOTk5LTguOTk5IDAtMi40MDUtLjkzNi00LjY2Ni0yLjYxNi02LjI5OUwxOC40MDMgNS41OTZ6TTEyLjAxNiAxOS41NjNoLS4wMDNhNy41MzMgNy41MzMgMCAwIDEtMy44NDEtMS4wNTRsLS4yNzUtLjE2My0yLjg1MS43NS43NjEtMi43NzktLjE3OS0uMjg1YTcuNTM4IDcuNTM4IDAgMCAxLTEuMTU3LTQuMDM0YzAtNC4xNTkgMy4zODMtNy41NDMgNy41NDYtNy41NDMgMi4wMTYgMCAzLjkxMS43ODYgNS4zMzYgMi4yMTJBMi41MTYgMi41MTYgMCAwIDEgMTIuMDE2IDE5LjU2M3ptNC4xMzQtNS42NTFjLS4yMjYtLjExMy0xLjM0LS42NjEtMS41NDgtLjczNy0uMjA4LS4wNzUtLjM1OS0uMTEzLS41MS4xMTMtLjE1MS4yMjctLjU4Ni43MzctLjcxOC44ODctLjEzMi4xNTItLjI2NS4xNy0uNDkxLjA1Ny0uMjI2LS4xMTMtLjk1Ny0uMzUzLTEuODIzLTEuMTI2LS42NzUtLjYwMy0xLjEzMS0xLjM0Ni0xLjI2My0xLjU3My0uMTMyLS4yMjYtLjAxNC0uMzQ4LjEtLjQ2MS4xMDEtLjEwMS4yMjctLjI2NC4zNC0uMzk2LjExMy0uMTMyLjE1MS0uMjI2LjIyNy0uMzc3LjA3NS0uMTUxLjAzOC0uMjgzLS4wMTktLjM5Ni0uMDU3LS4xMTMtLjUxLTEuMjI3LS42OTktMS42ODEtLjE4OC0uNDQ0LS4zNzYtLjM4NiYtLjUxLS4zOTItLjEyNS0uMDA4LS4yNzEtLjAwOS0uNDItLjAwOS0uMTUxIDAtLjM5Ni4wNTctLjYwNC4yODMtLjIwOC4yMjctLjc5My43NzQtLjc5MyAxLjg4OCAwIDEuMTE0LjgxMiAyLjE5Ljk4MyAyLjQxNi4xNy4yMjYgMS43NjEgMi42OTIgNC4zOTYgMy44My41NDkuMjM3Ljk3Ny4zNzkgMS4zMTMuNDg1LjU1Ny4xNzYgMS4wNjQuMTUxIDEuNDY2LjA5MS40NTMtLjA2NyAxLjM0LS41NDcgMS41MjktMS4wNzUuMTg5LS41MjguMTg5LS45ODEuMTMyLTEuMDc1LS4wNTctLjA5NC0uMjA4LS4xNTEtLjQzNC0uMjY0eiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=";
 
-    typebotInitScript.innerHTML = `import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
+    typebotInitScript.innerHTML = `import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.2/dist/web.js'
+    
+    // Explicitly set the window object to store the opened state
+    window.isChatOpen = false;
 
     Typebot.initBubble({
       typebot: "bbadvlp",
       apiHost: "https://flow.creativelane.com.br",
       theme: {
         button: { 
-          backgroundColor: "#25D366", // WhatsApp Green
-          customIconSrc: "${whatsappIcon}",
+          backgroundColor: "#25D366",
+          customIconSrc: window.location.origin + "/bubble-icon.png",
           size: "large"
         },
         chatWindow: { backgroundColor: "#F8F8F8" },
       },
+      onOpen: () => { window.isChatOpen = true; },
+      onClose: () => { window.isChatOpen = false; }
     });
     
-    // Helper to expose typebot to global scope for button clicks
     window.Typebot = Typebot;
     `;
     document.body.append(typebotInitScript);
 
     return () => {
       // Best effort cleanup
-      if(document.body.contains(typebotInitScript)) {
-          document.body.removeChild(typebotInitScript);
+      if (document.body.contains(typebotInitScript)) {
+        document.body.removeChild(typebotInitScript);
       }
     }
   }, []);
@@ -574,7 +636,7 @@ function App() {
 
   const openChat = () => {
     if ((window as any).Typebot) {
-      (window as any).Typebot.open();
+      (window as any).Typebot.toggle();
     } else {
       console.log('Typebot loading...');
     }
@@ -585,18 +647,17 @@ function App() {
       <Header onCtaClick={openChat} />
       <main>
         <Hero onCtaClick={openChat} />
-        <EmpathySection />
-        <AudienceSection />
-        <ServicesSection />
+        <EmpathySection onCtaClick={openChat} />
+        <ExpertiseSection onCtaClick={openChat} />
         <SecondTeamSection onCtaClick={openChat} />
         <ReviewSection />
         <FAQSection />
       </main>
       <Footer onOpenPrivacy={() => setIsPrivacyOpen(true)} onOpenTerms={() => setIsTermsOpen(true)} />
-      
+
       {/* Scroll Top */}
       {showScrollTop && (
-        <button 
+        <button
           onClick={scrollToTop}
           className="fixed bottom-24 right-6 w-10 h-10 bg-gray-800 hover:bg-gray-700 text-white rounded-full shadow-xl flex items-center justify-center z-40 transition-all opacity-80 hover:opacity-100"
         >
